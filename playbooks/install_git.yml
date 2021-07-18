@@ -1,0 +1,5 @@
+- hosts: ubuntu
+  tasks:
+    - name: install git
+      apt: name=git state=present update_cache=yes
+      become: yes
