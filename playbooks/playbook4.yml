@@ -1,0 +1,22 @@
+- name: Variable Test
+  become: yes
+  hosts: Test
+  vars:
+    message1: Privet
+    message2: Ansible
+    secret: asdasdasdasd
+  tasks:
+  - name: Print Secret Variable
+    debug:
+      var: secret
+  - name: Print message
+    debug:
+      msg: "Secret Word: {{ secret }}"
+  - name: Print message 2
+    debug:
+      msg: "The {{ansible_os_family}}"
+  - shell: uptime
+    register: results
+
+  - debug:
+      var: results
