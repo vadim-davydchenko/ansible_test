@@ -1,0 +1,11 @@
+- name: Install default Apache
+  hosts: Test
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install
+    apt: name=mini-httpd state=latest
+  - name: Start and Enable Service
+    service: name=mini-httpd state=started enabled=yes
+
+  

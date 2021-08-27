@@ -1,0 +1,18 @@
+- name: Install nginx and Upload WebPage
+  hosts: Test
+  become: yes
+  vars:
+    source_file: /home/vadim/MyWebSite/index.html
+    destin_file: /var/www/html
+  tasks:
+  - name: Install nginx WEb Server
+    apt: name=nginx state=latest
+  - name: copy index.html to Servers
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+    notify: Restart nginx
+  - name: Start WebServers and Enable
+    service: name=nginx state=started enabled=yes
+
+  handlers:
+  - name: Restart nginx
+    service: name=nginx state=restarted  
