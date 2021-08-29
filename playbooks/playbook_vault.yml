@@ -1,0 +1,26 @@
+- name: Ansible Test Vault
+  hosts: Test
+  become: yes
+  vars:
+    admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34613439353633393939396562373662643132346535383633356632626166323637326266393837
+          3565386463343737303065356232626564336161363031350a623631313334396263343139306335
+          64316236306530313930643036653562626236393866333737666537333730373830303565626338
+          6639636436303966300a373438616630373465616236376233643063386331663565303562633261
+          6363
+          
+  tasks:
+  - name: Install package tree
+    apt: name=tree state=latest
+  - name: Create config file
+    copy:
+      dest: "/home/vadim/myconfig.conf"
+      content:
+        port: 9092
+        log: 7days
+        home: /opt/kafka/bin/
+        user: admin
+        password: "{{ admin_password }}"
+      
+  

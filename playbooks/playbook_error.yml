@@ -1,0 +1,17 @@
+- name: Ansible Errors Handling
+  hosts: Test
+  any_errors_fatal: true
+  become: yes
+  tasks:
+  - name: Task 1
+    apt: name=treeee state=latest
+    ignore_errors: yes
+  - name: Task 2
+    shell: cat /home/vadim/myfile.txt
+    register: results
+   # failed_when: results.rc == 0
+  - debug:
+      var: results
+  - name: Task 3
+    shell: echo Privet Mir!!!
+

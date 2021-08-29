@@ -1,0 +1,2 @@
+ansible_user: vadim
+ansible_ssh_private_key: ~/.ssh/test.pem

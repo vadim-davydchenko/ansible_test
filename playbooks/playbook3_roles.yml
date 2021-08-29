@@ -1,0 +1,5 @@
+- name: Install nginx and Upload WebPage
+  hosts: Test
+  become: yes
+  roles:
+    - deploy_nginx_web

@@ -1,0 +1,12 @@
+- name: Test Playbook Import/Include
+  hosts: Test
+  become: yes
+  vars:
+    mytext: "Hello Users"
+  tasks:
+    - name: Ping server
+      ping:
+    - name: Create Folders
+      include: create_folders.yml
+    - name: Create file
+      include: create_files.yml  
