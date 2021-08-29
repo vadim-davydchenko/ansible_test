@@ -1,0 +1,26 @@
+- name: Loop Test
+  hosts: Test
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Say Hello
+    debug: msg="Hello {{ item }}"
+    loop:
+      - "Vasya"
+      - "User"
+      - "Ops"
+  - name: Test Until loop
+    shell: echo -n Z >> file.txt && cat file.txt
+    register: output
+    delay: 2
+    retries: 10
+    until: output.stdout.find("ZZZZ") == false
+  - name: Print Final output
+    debug:
+      var: output.stdout
+
+  - name: Install many packages
+    apt: name={{item}} state=latest
+    loop:
+     - mysql-client
+     - sshpass

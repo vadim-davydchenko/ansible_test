@@ -2,14 +2,20 @@
   hosts: Test
   become: yes
   vars:
-    source_file: /home/vadim/MyWebSite/index.html
-    destin_file: /var/www/html
+    source_folder: /home/vadim/MyWebSite/
+    destin_folder: /var/www/html
   tasks:
   - name: Install nginx WEb Server
     apt: name=nginx state=latest
-  - name: copy index.html to Servers
-    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+  
+  - name: Generate index.html
+    template: src={{ source_folder }}/index.j2 dest={{ destin_folder }}/index.html mode=0555
     notify: Restart nginx
+
+  - name: copy index.html to Servers
+    copy: src={{ source_folder }} dest={{ destin_folder }} mode=0555
+    
+
   - name: Start WebServers and Enable
     service: name=nginx state=started enabled=yes
 
